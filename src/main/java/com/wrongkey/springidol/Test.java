@@ -12,7 +12,7 @@ import org.springframework.context.support.ClassPathXmlApplicationContext;
  */
 public class Test {
     public static void main(String[] args)throws Exception{
-        ApplicationContext ctx = new ClassPathXmlApplicationContext("com.wrongkey.springidol/springidol.xml");
+        ApplicationContext ctx = new ClassPathXmlApplicationContext("com.wrongkey.springidol/springidol2.xml");
         Performer performer = (Performer)ctx.getBean("poeticjuggler");
 
         performer.perform();

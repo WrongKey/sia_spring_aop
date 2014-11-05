@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <beans xmlns="http://www.springframework.org/schema/beans"
-       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:aop="http://www.springframework.org/schema/aop"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:aop="http://www.springframework.org/schema/aop"
        xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop.xsd">
 
     <aop:aspectj-autoproxy/>
@@ -17,6 +18,23 @@
         <constructor-arg name="beanBags" value="15"/>
         <constructor-arg name="poem" ref="sonnet29"/>
     </bean>
-    <!--<start bean id="poeticjuggler">-->
+    <!--<end bean id="poeticjuggler">-->
 
+    <!--<start bean id="criticismEngine">-->
+    <bean id="criticismEngine"
+        class="com.wrongkey.springidol.CriticismEngineImpl">
+        <property name="criticisms">
+            <list>
+                <value>I'm not being rude, but that was appalling.</value>
+                <value>You may be the least talented person in this show.</value>
+                <value>Do everyone a favor and keep your day job.</value>
+            </list>
+        </property>
+    </bean>
+    <!--<end bean id="criticismEngine">-->
+
+    <bean class="com.wrongkey.springidol.JudgeAspect"
+          factory-method="aspectOf">
+        <property name="criticismengine" ref="criticismEngine"/>
+    </bean>
 </beans>
