@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:aop="http://www.springframework.org/schema/aop"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop.xsd">
+
+    <!--<start bean id="sonnet29">-->
+    <bean id="sonnet29"
+            class="com.wrongkey.springidol.Sonnet29"/>
+    <!--<end bean id="sonnet29">-->
+
+    <!--<start bean id="poeticjuggler">-->
+    <bean id="poeticjuggler"
+          class="com.wrongkey.springidol.PoeticJuggler">
+        <constructor-arg name="name" value="wrongkey"/>
+        <constructor-arg name="beanBags" value="15"/>
+        <constructor-arg name="poem" ref="sonnet29"/>
+    </bean>
+    <!--<start bean id="poeticjuggler">-->
+
+    <!--<start bean id="audience">-->
+    <bean id="audience"
+          class="com.wrongkey.springidol.Audience"/>
+    <!--<end bean id="audience">-->
+
+    <!--<start bean id="magician">-->
+    <bean id="magician"
+          class="com.wrongkey.springidol.Magician"/>
+    <!--<end bean id="magician">-->
+
+    <!--<start bean id="volunteer">-->
+    <bean id="volunteer"
+          class="com.wrongkey.springidol.Volunteer"/>
+    <!--<end bean id="volunteer">-->
+
+    <aop:config>
+        <aop:aspect ref="audience">
+
+            <aop:pointcut id="performance" expression=
+                    "execution(* com.wrongkey.springidol.Performer.perform(..))"/>
+
+            <aop:around method="watchPerformance" pointcut-ref="performance"/>
+
+            <!--<aop:before pointcut-ref="performance" method="takeSeats"/>-->
+            <!--<aop:before pointcut-ref="performance" method="turnOffCellPhones"/>-->
+            <!--<aop:after-returning pointcut-ref="performance" method="applaud"/>-->
+            <!--<aop:after-throwing pointcut-ref="performance" method="demandRefund"/>-->
+
+            <!--&lt;!&ndash;<表演之前,通知调用takeSeats和turnOffCellPhones>&ndash;&gt;-->
+            <!--<aop:before pointcut="execution(* com.wrongkey.springidol.Performer.perform(..))"-->
+                        <!--method="takeSeats" />-->
+
+            <!--<aop:before pointcut="execution(* com.wrongkey.springidol.Performer.perform(..))"-->
+                        <!--method="turnOffCellPhones" />-->
+            <!--&lt;!&ndash;<表演之前,通知调用takeSeats和turnOffCellPhones>&ndash;&gt;-->
+
+            <!--&lt;!&ndash;<表演之后,通知调用applaud>&ndash;&gt;-->
+            <!--<aop:after pointcut="execution(* com.wrongkey.springidol.Performer.perform(..))"-->
+                       <!--method="applaud"/>-->
+            <!--&lt;!&ndash;<表演之后,通知调用applaud>&ndash;&gt;-->
+
+            <!--&lt;!&ndash;<表演发生异常之后,通知调用applaud>&ndash;&gt;-->
+            <!--<aop:after-throwing pointcut="execution(* com.wrongkey.springidol.Performer.perform(..))"-->
+                                <!--method="demandRefund"/>-->
+            <!--&lt;!&ndash;<表演发生异常之后,通知调用applaud>&ndash;&gt;-->
+
+        </aop:aspect>
+
+        <aop:aspect ref="magician">
+            <aop:pointcut id="thinking" expression=
+                    "execution(* com.wrongkey.springidol.Thinker.thinkOfSomething(String)) and args(thoughts)"/>
+
+            <aop:before pointcut-ref="thinking" method="interceptThoughts" arg-names="thoughts"/>
+
+        </aop:aspect>
+    </aop:config>
+
+</beans>
