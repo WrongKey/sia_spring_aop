@@ -16,7 +16,5 @@ public class Test {
         Performer performer = (Performer)ctx.getBean("poeticjuggler");
 
         performer.perform();
-
-        System.out.println("---------------------读心术表演------------------------");
     }
 }

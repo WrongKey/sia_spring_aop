@@ -33,6 +33,11 @@
           class="com.wrongkey.springidol.Volunteer"/>
     <!--<end bean id="volunteer">-->
 
+    <!--<start bean id="contestantDelegate">-->
+    <bean id="contestantDelegate"
+          class="com.wrongkey.springidol.GraciousContestant"/>
+    <!--<end bean id="contestantDelegate">-->
+
     <aop:config>
         <aop:aspect ref="audience">
 
@@ -73,6 +78,14 @@
             <aop:before pointcut-ref="thinking" method="interceptThoughts" arg-names="thoughts"/>
 
         </aop:aspect>
+        
+        <aop:aspect>
+            <aop:declare-parents types-matching="com.wrongkey.springidol.Performer+"
+                                 implement-interface="com.wrongkey.springidol.Contestant"
+                                 delegate-ref="contestantDelegate"/>
+                                 <!--default-impl="com.wrongkey.springidol.GraciousContestant"/>-->
+        </aop:aspect>
+        
     </aop:config>
 
 </beans>
